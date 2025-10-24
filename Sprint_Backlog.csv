@@ -4,7 +4,7 @@ Requirement ID,Title,Description,Story Points,Priority,Sprint No.
 3,Simulated 401k tokens ledger,Start users with demo tokens; atomic debit/credit on bets & wins.,5,1,1
 4,Wallet panel,Show balance and recent 20 transactions.,3,2,1
 5,Reusable game shell + bet slip,"Common component to place a bet, show results, and update balance.",5,1,1
-6,Game #1: Coin Flip,"Blackjack, 2.0x payout; server resolves outcome; UI animates result.",5,1,1
+6,Game #1: Blackjack,"Blackjack, 2.0x payout; server resolves outcome; UI animates result.",5,1,1
 7,Game #2: High–Low,Predict next card higher/lower; ~1.9x payout; resolve & settle.,5,1,1
 8,Server validation & idempotency,Validate bets and prevent duplicate submissions on refresh/double click.,3,2,1
 9,On‑Track Popup (v1),Popup with inputs and math to show how much you'd need to win/month to meet a user-entered retirement target (satire).,5,1,1
@@ -16,4 +16,5 @@ Requirement ID,Title,Description,Story Points,Priority,Sprint No.
 15,Export history CSV,Download last 200 transactions as CSV.,3,2,2
 16,A11y + empty/error states,"Keyboard nav, labels, and friendly empty/error messaging.",2,2,2
 17,Polish & bug‑bash,"QA, small UI fixes, and perf nits.",2,2,2
+
 18,README + Demo script,"Runbook, seed users, and demo steps.",2,2,2
