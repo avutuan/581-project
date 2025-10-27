@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <circle cx="64" cy="64" r="60" fill="#1b1f3b"/>
+  <circle cx="64" cy="64" r="52" fill="#f04e98"/>
+  <circle cx="64" cy="64" r="36" fill="#fff1d0"/>
+  <path d="M64 16a48 48 0 0 0-48 48h12a36 36 0 0 1 36-36V16zM64 112a48 48 0 0 0 48-48H100a36 36 0 0 1-36 36v12z" fill="#e63973"/>
+  <path d="M112 64a48 48 0 0 0-48-48v12a36 36 0 0 1 36 36h12zM16 64a48 48 0 0 0 48 48V100a36 36 0 0 1-36-36H16z" fill="#ff88b7"/>
+  <text x="64" y="73" font-family="Arial, Helvetica, sans-serif" font-size="28" text-anchor="middle" fill="#1b1f3b">401k</text>
+</svg>

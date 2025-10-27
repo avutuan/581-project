@@ -62,3 +62,5 @@ Base styles and mobile breakpoints provide responsive layouts across lobby, wall
 Testing, demo & delivery
 
 Testing is scoped to the backlog: integration checks for critical bet/settle flows, and an end-to-end demo script that seeds users and runs through primary flows. The README + demo script documents seeding, run steps, and instructor-facing notes required by the sprint backlog.
+
+Release criteria follow the backlog exactly: scaffold and routing implemented, auth working (mock verification allowed), the ledger and wallet visible with export capability, the three mandated games present (plus optional Red/Black if completed), On‑Track v2 integrated, accessibility items addressed, and polish tasks completed so the demo script can exercise all user journeys.
