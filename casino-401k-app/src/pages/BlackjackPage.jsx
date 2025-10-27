@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useAccount } from '../context/AccountContext.jsx';
+import { useSupabaseAccount } from '../context/SupabaseAccountContext.jsx';
 import GameShell from '../components/game/GameShell.jsx';
 import BetSlip from '../components/game/BetSlip.jsx';
 import HandDisplay from '../components/game/HandDisplay.jsx';
@@ -93,7 +93,7 @@ const describeOutcome = (outcome, playerTotal, dealerTotal) => {
 };
 
 const BlackjackPage = () => {
-  const { balance, debit, credit } = useAccount();
+  const { balance, debit, credit } = useSupabaseAccount();
   const [round, setRound] = useState(INITIAL_ROUND);
   const [history, setHistory] = useState([]);
   const [lastBet, setLastBet] = useState(100);

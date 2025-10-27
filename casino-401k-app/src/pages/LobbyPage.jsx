@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.jsx';
-import { useAccount } from '../context/AccountContext.jsx';
+import { useSupabaseAuth } from '../context/SupabaseAuthContext.jsx';
+import { useSupabaseAccount } from '../context/SupabaseAccountContext.jsx';
 import { gameLineup, sprintPlaceholders } from '../data/games.js';
 
 const LobbyPage = () => {
-  const { currentUser } = useAuth();
-  const { balance, transactions } = useAccount();
+  const { currentUser } = useSupabaseAuth();
+  const { balance, transactions } = useSupabaseAccount();
   const recentTransactions = transactions.slice(0, 5);
 
   return (
@@ -87,7 +87,7 @@ const LobbyPage = () => {
               <div>
                 <p className="transactions-list__description">{txn.description}</p>
                 <p className="transactions-list__timestamp">
-                  {new Date(txn.timestamp).toLocaleString()}
+                  {new Date(txn.created_at || txn.timestamp).toLocaleString()}
                 </p>
               </div>
               <div className={`transactions-list__amount transactions-list__amount--${txn.type}`}>
@@ -95,7 +95,7 @@ const LobbyPage = () => {
                 {txn.amount.toLocaleString()}
               </div>
               <div className="transactions-list__balance">
-                Balance: {txn.balance.toLocaleString()}
+                Balance: {(txn.balance_after || txn.balance).toLocaleString()}
               </div>
             </li>
           ))}
