@@ -1,11 +1,11 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext.jsx';
-import { useAccount } from '../../context/AccountContext.jsx';
+import { useSupabaseAuth } from '../../context/SupabaseAuthContext.jsx';
+import { useSupabaseAccount } from '../../context/SupabaseAccountContext.jsx';
 
 const SiteHeader = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, currentUser, logout } = useAuth();
-  const { balance } = useAccount();
+  const { isAuthenticated, currentUser, logout } = useSupabaseAuth();
+  const { balance } = useSupabaseAccount();
 
   const handleLogout = () => {
     logout();

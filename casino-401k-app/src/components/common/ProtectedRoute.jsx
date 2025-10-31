@@ -1,10 +1,10 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext.jsx';
-import { useAccount } from '../../context/AccountContext.jsx';
+import { useSupabaseAuth } from '../../context/SupabaseAuthContext.jsx';
+import { useSupabaseAccount } from '../../context/SupabaseAccountContext.jsx';
 
 const ProtectedRoute = () => {
-  const { isAuthenticated, isReady } = useAuth();
-  const { isReady: ledgerReady } = useAccount();
+  const { isAuthenticated, isReady } = useSupabaseAuth();
+  const { isReady: ledgerReady } = useSupabaseAccount();
   const location = useLocation();
 
   if (!isReady || !ledgerReady) {

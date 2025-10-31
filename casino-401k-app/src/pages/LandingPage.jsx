@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.jsx';
+import { useSupabaseAuth } from '../context/SupabaseAuthContext.jsx';
 import { upcomingOverview } from '../data/games.js';
 
 const LandingPage = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated } = useSupabaseAuth();
   const primaryCta = isAuthenticated ? '/lobby' : '/login';
   const primaryLabel = isAuthenticated ? 'Jump to Lobby' : 'Create Satirical Account';
 

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.jsx';
+import { useSupabaseAuth } from '../context/SupabaseAuthContext.jsx';
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isAuthenticated, login, register } = useAuth();
+  const { isAuthenticated, login, register } = useSupabaseAuth();
 
   const [mode, setMode] = useState('login');
   const [formValues, setFormValues] = useState({ email: '', password: '' });
