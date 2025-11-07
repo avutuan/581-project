@@ -6,6 +6,7 @@ import LandingPage from './pages/LandingPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import LobbyPage from './pages/LobbyPage.jsx';
 import BlackjackPage from './pages/BlackjackPage.jsx';
+import WalletPage from './pages/WalletPage.jsx';
 import GamePlaceholderPage from './pages/GamePlaceholderPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 
@@ -18,6 +19,7 @@ const AppLayout = () => (
         <Route path="/login" element={<LoginPage />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/lobby" element={<LobbyPage />} />
+          <Route path="/wallet" element={<WalletPage />} />
           <Route path="/game/blackjack" element={<BlackjackPage />} />
           <Route path="/game/:gameId" element={<GamePlaceholderPage />} />
         </Route>

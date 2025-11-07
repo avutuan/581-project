@@ -864,3 +864,44 @@ textarea {
     justify-self: flex-start;
   }
 }
+
+/* ========================================
+   WALLET UI STYLES
+   ======================================== */
+.wallet-page { max-width: 1200px; margin: 0 auto; }
+.wallet-panel { background: white; border-radius: 28px; padding: 2.5rem; box-shadow: 0 28px 50px rgba(77, 47, 255, 0.14); }
+.wallet-header { margin-bottom: 2rem; text-align: center; }
+.wallet-header h2 { font-size: 2rem; margin-bottom: 0.5rem; }
+.wallet-subtitle { color: #4d4d74; margin: 0; }
+.wallet-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+.wallet-stat-card { background: rgba(109, 54, 255, 0.05); border-radius: 20px; padding: 1.5rem; text-align: center; border: 1px solid rgba(109, 54, 255, 0.1); }
+.wallet-stat-card--primary { background: linear-gradient(135deg, rgba(109, 54, 255, 0.1), rgba(255, 62, 132, 0.1)); border-color: #6d36ff; }
+.wallet-stat-card__label { font-size: 0.85rem; color: #4d4d74; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+.wallet-stat-card__value { font-size: 1.75rem; font-weight: 700; color: #6d36ff; margin: 0.25rem 0; }
+.wallet-stat-card__value.positive { color: #1a9b5b; }
+.wallet-stat-card__value.negative { color: #c81d4f; }
+.wallet-stat-card__unit { font-size: 0.75rem; color: #5c5c80; }
+.wallet-transaction-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.wallet-transaction-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(109, 54, 255, 0.03); border-radius: 12px; border: 1px solid rgba(109, 54, 255, 0.08); }
+.wallet-transaction-item__main { display: flex; align-items: center; gap: 1rem; flex: 1; }
+.wallet-transaction-item__icon { width: 36px; height: 36px; border-radius: 50%; background: #6d36ff; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; font-weight: 700; }
+.wallet-transaction-item__description { font-weight: 600; margin-bottom: 0.25rem; }
+.wallet-transaction-item__timestamp { font-size: 0.75rem; color: #5c5c80; }
+.wallet-transaction-item__amount { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
+.wallet-transaction-item__amount--credit { color: #1a9b5b; }
+.wallet-transaction-item__amount--debit { color: #c81d4f; }
+
+/* ROULETTE & SLOTS GAME STYLES */
+.roulette-game, .slots-game { display: flex; flex-direction: column; gap: 2rem; }
+.roulette-wheel, .slots-machine { background: radial-gradient(circle, rgba(109, 54, 255, 0.1), transparent); border-radius: 20px; padding: 2rem; min-height: 300px; display: flex; align-items: center; justify-content: center; }
+.roulette-numbers { display: grid; grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 0.5rem; margin-bottom: 1.5rem; }
+.roulette-number { aspect-ratio: 1; border-radius: 8px; font-weight: 700; cursor: pointer; color: white; border: 2px solid transparent; }
+.roulette-number--red { background: #c81d4f; }
+.roulette-number--black { background: #1c1c33; }
+.roulette-number--green { background: #1a9b5b; }
+.roulette-number.selected { border-color: #ffd700; box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3); }
+.slots-reels { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; }
+.slots-reel { width: 120px; height: 120px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 22px 44px rgba(28, 28, 51, 0.1); border: 3px solid #6d36ff; }
+.slots-symbol { font-size: 4rem; }
+.bet-input-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+.bet-input-group input { width: 100%; padding: 0.5rem; border-radius: 12px; border: 1px solid rgba(109, 54, 255, 0.2); }

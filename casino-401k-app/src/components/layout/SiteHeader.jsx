@@ -32,6 +32,9 @@ const SiteHeader = () => {
         <NavLink to="/game/blackjack" className={({ isActive }) => isActive ? 'nav-link nav-link--active' : 'nav-link'}>
           Blackjack
         </NavLink>
+        <NavLink to="/wallet" className={({ isActive }) => isActive ? 'nav-link nav-link--active' : 'nav-link'}>
+          Wallet
+        </NavLink>
       </nav>
 
       <div className="site-header__actions">
