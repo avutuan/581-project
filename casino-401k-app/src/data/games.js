@@ -8,7 +8,7 @@ export const gameLineup = [
   },
   {
     id: 'high-low',
-    name: 'High–Low',
+    name: 'High-Low',
     sprint: 'Sprint 2',
     status: 'coming-soon',
     description: 'Predict whether the next card is higher or lower. Placeholdered until Sprint 2.'
