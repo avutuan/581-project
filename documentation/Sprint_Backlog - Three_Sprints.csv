@@ -8,10 +8,10 @@ Requirement ID,Title,Description,Story Points,Priority,Sprint No.
 7,Game #2: High–Low,Predict next card higher/lower; ~1.9x payout; resolve & settle.,5,1,2
 8,On‑Track Popup (v1),Popup with inputs and math to show how much you'd need to win/month to meet a user-entered retirement target (satire).,5,1,2
 9,Base styles & mobile breakpoints,"Basic responsive layout for lobby, wallet, and games.",3,3,2
-10,Game #3: Slots Mini,3‑reel slots with fixed paylines; bet sizes; settle results.,8,1,3
-11,Game #4: Red/Black (Stretch),Roulette‑lite: red/black only; 2.0x payout.,5,3,3 (Stretch)
-12,On‑Track Popup (v2),"Persist defaults, link from lobby, and add light‑hearted copy.",3,2,3
-14,Export history CSV,Download last 200 transactions as CSV.,3,2,3
-15,A11y + empty/error states,"Keyboard nav, labels, and friendly empty/error messaging.",2,2,3
-16,Polish & bug‑bash,"QA, small UI fixes, and perf nits.",2,2,3
-17,README + Demo script,"Runbook, seed users, and demo steps.",2,2,3
+10,Game #3: Slots Mini,3‑reel slots with fixed paylines; bet sizes; settle results.,8,1,-
+11,Game #4: Red/Black (Stretch),Roulette‑lite: red/black only; 2.0x payout.,5,3,-
+12,On‑Track Popup (v2),"Persist defaults, link from lobby, and add light‑hearted copy.",3,2,-
+14,Export history CSV,Download last 200 transactions as CSV.,3,2,-
+15,A11y + empty/error states,"Keyboard nav, labels, and friendly empty/error messaging.",2,2,-
+16,Polish & bug‑bash,"QA, small UI fixes, and perf nits.",2,2,-
+17,README + Demo script,"Runbook, seed users, and demo steps.",2,2,-

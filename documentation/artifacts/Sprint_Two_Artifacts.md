@@ -4,7 +4,53 @@ This document provides the artifacts for all requirements scheduled for Sprint 2
 
 ---
 
-## Requirement ID: 5 — Game #2: High‑Low
+## Requirement ID: 5 — Transactions & Game History
+
+- Title: Transactions and Game History
+- Description: Provide UI views for users to inspect their transaction ledger and recent game sessions.
+- Story Points: 3
+- Artifact Type: Feature List
+
+Verifiable features:
+
+- Transactions list:
+  - Authenticated users can navigate to a transactions/history view from the account area.
+  - The view lists recent transactions (debit/credit) with columns: timestamp, transaction id, type, amount, running balance, description, and associated game id when applicable.
+  - Pagination or "load more" is available when the list is long.
+- Game session history:
+  - A separate or combined list allows the user to see recent game sessions with details: game id, bet amount, payout, outcome, and small summary (e.g., first/second card for High‑Low).
+  - Each session includes a timestamp and links back to the corresponding transaction(s).
+- Privacy & security:
+  - Users only see their own transactions and sessions; server enforces authorization.
+
+---
+
+## Requirement ID: 6 — Reusable game shell + bet slip
+
+- Title: Reusable Game Shell + Bet Slip
+- Description: Build common, reusable components that provide consistent layout for games and a standard bet placement UI (BetSlip) used by multiple games.
+- Story Points: 5
+- Artifact Type: Component / UI
+
+Verifiable features:
+
+- `GameShell` component:
+  - Accepts props for title, description, meta (array of label/value), sidebar and footer slots, and renders a consistent game play area.
+  - Is used by at least two game pages (e.g., `BlackjackPage` and `HighLowPage`) to demonstrate reusability.
+- `BetSlip` component:
+  - Accepts `onSubmit(amount)`, `balance`, `minBet`, `maxBet`, and `disabled` props.
+  - Validates input and calls `onSubmit` only when the bet is allowed; shows inline validation messages for insufficient funds or invalid amounts.
+  - Disables controls during an in-progress round to prevent double-submission.
+- Ledger integration:
+  - `BetSlip` usage integrates with the account context (`debit` API) to atomically debit the stake before the round begins.
+  - The components remain display-only regarding credits; settlement logic is implemented by the game pages or server endpoints.
+- Reuse & documentation:
+  - At least two game pages reuse `GameShell` and `BetSlip` proving consistent UX.
+  - A short README or developer note documents the component contract (props, events, and expected behavior).
+
+---
+
+## Requirement ID: 7 — Game #2: High‑Low
 
 - Title: Game #2: High‑Low
 - Description: A simple higher/lower prediction game where the UI shows a first card, the player predicts whether the next card will be higher or lower, and the server resolves and settles the round.
@@ -33,28 +79,7 @@ Verifiable features:
 
 ---
 
-## Requirement ID: 6 — Transactions & Game History
-
-- Title: Transactions and Game History
-- Description: Provide UI views for users to inspect their transaction ledger and recent game sessions.
-- Story Points: 3
-- Artifact Type: Feature List
-
-Verifiable features:
-
-- Transactions list:
-  - Authenticated users can navigate to a transactions/history view from the account area.
-  - The view lists recent transactions (debit/credit) with columns: timestamp, transaction id, type, amount, running balance, description, and associated game id when applicable.
-  - Pagination or "load more" is available when the list is long.
-- Game session history:
-  - A separate or combined list allows the user to see recent game sessions with details: game id, bet amount, payout, outcome, and small summary (e.g., first/second card for High‑Low).
-  - Each session includes a timestamp and links back to the corresponding transaction(s).
-- Privacy & security:
-  - Users only see their own transactions and sessions; server enforces authorization.
-
----
-
-## Requirement ID: 7 — On‑Track Popup (v1)
+## Requirement ID: 8 — On‑Track Popup (v1)
 
 - Title: On‑Track Popup (v1): Basic calculator and copy
 - Description: Implement the initial version of the On‑Track popup used on the landing page — a small interactive calculator that helps users estimate retirement targets. This v1 focuses on core functionality without persistence.
@@ -74,40 +99,21 @@ Verifiable features:
 
 ---
 
-## Requirement ID: 8 — Faucet & Demo Accounts
+## Requirement ID: 9 — Base styles & mobile breakpoints
 
-- Title: Faucet and demo account bootstrap
-- Description: Provide a simple faucet and/or seed mechanism so demo users can top up test tokens during local/demo sessions.
+- Title: Base styles & mobile breakpoints
+- Description: Provide a small design system and responsive layout rules so core pages (lobby, wallet, games) render well on mobile and desktop.
 - Story Points: 3
-- Artifact Type: Feature / Dev UX
+- Artifact Type: UI / Styling
 
 Verifiable features:
 
-- Seed/demo accounts:
-  - README or seed script documents how to create demo users and assign an initial token balance (example: 1000 tokens).
-  - A faucet button is available in the account area (or lobby) that grants a small demo token top‑up.
-- Safeguards:
-  - Faucet grants are recorded as transactions in the ledger with description like "Faucet grant".
-  - Server-side logic prevents abuse in production (for a demo, a simple once‑per-session safeguard is acceptable and documented).
+- Design tokens / base styles:
+  - A central stylesheet or variables file (CSS custom properties, Sass, or equivalent) defines primary spacing, colors, and type scales used across the app.
+- Layout verification:
+  - Lobby, wallet/account, and a game page (e.g., Blackjack or High‑Low) display correctly at common device widths (phone, tablet, narrow desktop).
+  - Navigation and primary controls remain accessible and usable at mobile widths (buttons large enough to tap, readable text sizes).
+- Non-regression:
+  - Existing components do not visually break after applying base styles; basic visual smoke test performed (developer confirms via browser resize or device emulator).
 
----
 
-## Requirement ID: 9 — Server Settling Endpoints (dev/demo)
-
-- Title: Server settling endpoints for games (dev/demo)
-- Description: Expose simple, documented endpoints that allow the frontend to place bets and receive resolved game outcomes for server‑settled games (Blackjack already exists; High‑Low to be added). This requirement ensures server-side settlement is available for integration testing.
-- Story Points: 3
-- Artifact Type: API / Integration
-
-Verifiable features:
-
-- API endpoints:
-  - `POST /games/high-low/placeBet` (or equivalent) accepts a bet request, debits user account (atomic), resolves the round outcome, credits payout (if any), and returns the resolution and updated balance.
-  - `POST /games/blackjack/placeBet` (existing or extended) continues to operate as the server-side resolver for Blackjack.
-  - `GET /wallet/:userId` or similar returns the current balance and recent transactions for quick ledger checks.
-- Documentation:
-  - Each endpoint is documented with request/response shapes, required authentication, and error cases (insufficient funds, malformed request).
-- Atomicity & ledger:
-  - The server applies debits and credits atomically and writes transaction records and game session entries so the ledger and game history remain consistent.
-
----
