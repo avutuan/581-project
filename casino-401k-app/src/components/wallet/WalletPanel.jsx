@@ -28,7 +28,7 @@ const WalletPanel = () => {
   // Access user's balance and transaction history from Supabase account context
   const { balance, transactions } = useSupabaseAccount();
 
-  // Limit transaction history to the most recent 10 entries for better performance
+  // Limit transaction history to the most recent 20 entries for better performance
   const recentTransactions = transactions.slice(0, 20);
   
   // Calculate total amount wagered by summing all debit transactions (bets placed)
