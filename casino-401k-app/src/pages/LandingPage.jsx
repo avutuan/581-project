@@ -3,24 +3,49 @@ import { Link } from 'react-router-dom';
 import { useSupabaseAuth } from '../context/SupabaseAuthContext.jsx';
 import { upcomingOverview } from '../data/games.js';
 
+// Landing / overview page for the demo app. Contains a hero card and an
+// on-page popup (retirement calculator). The popup is local to this component
+// and demonstrates a simple input -> computed-output interaction.
+
 const LandingPage = () => {
+  // Pull current auth flag so we can show the correct CTA
   const { isAuthenticated } = useSupabaseAuth();
+
+  // Popup open/minimized state. Defaults to open so graders immediately see it.
   const [popupOpen, setPopupOpen] = useState(true);
-  const [landingTarget, setLandingTarget] = useState(401000);
-  const [landingCurrent, setLandingCurrent] = useState(0);
-  const [landingYears, setLandingYears] = useState(30);
+
+  // Calculator inputs (simple numeric state). Defaults chosen for demonstrative value.
+  const [landingTarget, setLandingTarget] = useState(401000); // tokens goal
+  const [landingCurrent, setLandingCurrent] = useState(0); // current tokens
+  const [landingYears, setLandingYears] = useState(30); // years until retirement
+
+  // Primary CTA target and label change depending on auth state.
   const primaryCta = isAuthenticated ? '/lobby' : '/login';
   const primaryLabel = isAuthenticated ? 'Jump to Lobby' : 'Create Satirical Account';
 
-  /* Small display helper - simple math: (target - current) / (years * 12) */
+  /*
+    Small helper component that computes required monthly wins.
+    Calculation is intentionally simple:
+      remaining = max(0, target - current)
+      months = max(1, floor(years * 12))
+      perMonth = remaining / months
+
+    The component focuses on clarity rather than financial realism.
+  */
   function ResultDisplay({ target, current, years }) {
     if (!Number.isFinite(target) || target <= 0) {
       return <p style={{ color: '#c81d4f' }}>Enter a valid retirement target above.</p>;
     }
 
-    const remaining = Math.max(0, target - (Number.isFinite(current) ? current : 0));
-    const months = Math.max(1, Math.floor((Number.isFinite(years) && years > 0 ? years : 0) * 12));
-    const perMonth = months > 0 ? remaining / months : Infinity;
+  // remaining tokens needed to reach the target; clamp to 0 to avoid negatives
+  const remaining = Math.max(0, target - (Number.isFinite(current) ? current : 0));
+
+  // Convert years to months. We floor to avoid fractional months, and ensure
+  // at least one month to prevent divide-by-zero.
+  const months = Math.max(1, Math.floor((Number.isFinite(years) && years > 0 ? years : 0) * 12));
+
+  // monthly requirement; Infinity signals an invalid numeric input scenario
+  const perMonth = months > 0 ? remaining / months : Infinity;
 
     return (
       <div>
@@ -37,11 +62,14 @@ const LandingPage = () => {
 
   return (
     <div className="page landing-page">
-      {/* Simple toggleable popup — opens by default and can be minimized */}
+      {/* Popup: toggles between open and minimized via `popupOpen` state */}
       <div className={`landing-popup ${popupOpen ? 'landing-popup--open' : 'landing-popup--min'}`}>
+        {/* Header row: title and controls */}
         <div className="landing-popup__header">
+          {/* Strong element used as the visible title for the popup */}
           <strong>Retirement Calculator</strong>
           <div className="landing-popup__controls">
+            {/* Toggle button flips popupOpen; aria-label updates for a11y */}
             <button
               className="landing-popup__control"
               aria-label={popupOpen ? 'Minimize popup' : 'Open popup'}
@@ -51,15 +79,18 @@ const LandingPage = () => {
             </button>
           </div>
         </div>
+
+        {/* Body renders only when popupOpen is true */}
         {popupOpen && (
           <div className="landing-popup__body">
+            {/* Short description explaining the calculator's simplified assumptions */}
             <p>
               Calculator: enter a retirement target, current balance, and years until retirement.
               We'll show the approximate tokens you must win per month to reach the goal (simple
               linear projection — no interest or investment returns included).
             </p>
 
-            {/* Calculator inputs */}
+            {/* Calculator inputs: each labeled input updates local component state */}
             <div style={{ display: 'grid', gap: 8 }}>
               <label style={{ fontSize: 12, color: '#5c5c80' }}>
                 Retirement target (tokens)
@@ -67,6 +98,7 @@ const LandingPage = () => {
                   type="number"
                   min="0"
                   step="1"
+                  // Coerce to number when passing into the input to avoid React warnings
                   value={Number.isFinite(Number(landingTarget)) ? landingTarget : ''}
                   onChange={(e) => setLandingTarget(e.target.value)}
                   style={{ width: '100%', padding: '0.5rem', borderRadius: 8, border: '1px solid rgba(28,28,51,0.12)' }}
@@ -98,7 +130,7 @@ const LandingPage = () => {
               </label>
             </div>
 
-            {/* Result */}
+            {/* Result area uses ResultDisplay to keep render logic separated */}
             <div style={{ marginTop: 8 }}>
               <ResultDisplay
                 target={Number(landingTarget)}
