@@ -1,3 +1,17 @@
+/**
+ * ----------------------------------------------------------
+ * Game Lineup and Upcoming Features Module
+ * ----------------------------------------------------------
+ * Author: John Tran
+ * Last Modified: 2025/11/9
+ *
+ * Description:
+ * This module defines the lineup of casino games available in the application,
+ * along with placeholders for upcoming features and an overview of future plans.
+ * ----------------------------------------------------------
+ */
+
+// Array of game objects representing the casino game lineup
 export const gameLineup = [
   {
     id: 'blackjack',
@@ -10,8 +24,8 @@ export const gameLineup = [
     id: 'high-low',
     name: 'High-Low',
     sprint: 'Sprint 2',
-    status: 'coming-soon',
-    description: 'Predict whether the next card is higher or lower. Placeholdered until Sprint 2.'
+    status: 'available',
+    description: 'Predict whether the next card is higher or lower. Play a quick resolve-and-settle round with ~1.9x payout.'
   },
   {
     id: 'slots',
@@ -22,6 +36,7 @@ export const gameLineup = [
   }
 ];
 
+// Array of placeholders for upcoming sprint features
 export const sprintPlaceholders = [
   {
     sprint: 'Sprint 2',
@@ -40,6 +55,7 @@ export const sprintPlaceholders = [
   }
 ];
 
+// Array of placeholders for upcoming features overview
 export const upcomingOverview = [
   {
     title: 'Wallet Panel',
