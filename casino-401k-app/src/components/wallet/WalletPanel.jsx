@@ -16,7 +16,7 @@
  * - Total amount wagered (all debit transactions)
  * - Total amount won (all credit transactions from wins)
  * - Net profit/loss with color-coded display
- * - Last 10 transaction entries with timestamps and details
+ * - Last 20 transaction entries with timestamps and details
  *
  * Basically, this is your financial dashboard for the casino.
  * ----------------------------------------------------------
@@ -29,7 +29,7 @@ const WalletPanel = () => {
   const { balance, transactions } = useSupabaseAccount();
 
   // Limit transaction history to the most recent 10 entries for better performance
-  const recentTransactions = transactions.slice(0, 10);
+  const recentTransactions = transactions.slice(0, 20);
   
   // Calculate total amount wagered by summing all debit transactions (bets placed)
   const totalWagered = transactions
