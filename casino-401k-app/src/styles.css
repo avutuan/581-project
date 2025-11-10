@@ -936,3 +936,16 @@ textarea {
     justify-self: flex-start;
   }
 }
+
+.highlow-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.highlow-playfield {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
