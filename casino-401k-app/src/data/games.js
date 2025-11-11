@@ -31,8 +31,8 @@ export const gameLineup = [
     id: 'slots',
     name: 'Slots Mini',
     sprint: 'Sprint 3',
-    status: 'coming-soon',
-    description: 'Three-reel chaos goes live in Sprint 3 alongside polish and fairness work.'
+    status: 'available',
+    description: 'Compact three-reel slot machine with fixed paylines and Supabase-settled payouts.'
   }
 ];
 

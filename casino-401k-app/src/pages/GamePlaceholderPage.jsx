@@ -48,7 +48,7 @@ const GamePlaceholderPage = () => {
         <p>{copy.description}</p>
         {/* Note about current availability */}
         <p className="placeholder-card__note">
-          Only Blackjack is live today. This placeholder keeps the route intact for later development.
+          Blackjack, High-Low, and Slots Mini are live today. This placeholder keeps the rest of the routes intact for later development.
         </p>
         {/* Link back to lobby */}
         <Link to="/lobby" className="cta-button cta-button--primary">

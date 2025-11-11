@@ -24,6 +24,7 @@ import BlackjackPage from './pages/BlackjackPage.jsx';
 import WalletPage from './pages/WalletPage.jsx';
 import GamePlaceholderPage from './pages/GamePlaceholderPage.jsx';
 import HighLowPage from './pages/HighLowPage.jsx';
+import SlotsPage from './pages/SlotsPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 
 // App layout component with header, footer, and main content area
@@ -45,6 +46,7 @@ const AppLayout = () => (
           <Route path="/wallet" element={<WalletPage />} />
           <Route path="/game/blackjack" element={<BlackjackPage />} />
           <Route path="/game/high-low" element={<HighLowPage />} />
+          <Route path="/game/slots" element={<SlotsPage />} />
           <Route path="/game/:gameId" element={<GamePlaceholderPage />} />
         </Route>
         {/** Fallback route for 404 Not Found */}

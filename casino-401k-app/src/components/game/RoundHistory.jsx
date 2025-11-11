@@ -15,7 +15,9 @@ const outcomeLabels = {
   win: 'Win',              // Player wins
   blackjack: 'Blackjack!', // Player wins with a blackjack
   dealer: 'Loss',          // Dealer wins
-  push: 'Push'             // Tie game
+  push: 'Push',            // Tie game
+  loss: 'Loss',            // Generic loss (slots/high-low)
+  jackpot: 'Jackpot'       // Slots jackpot line
 };
 
 const RoundHistory = ({ history }) => {
@@ -39,7 +41,7 @@ const RoundHistory = ({ history }) => {
             <div>
               {/* Shows outcome (Win, Loss, etc.) and bet amount */}
               <p className={`round-history__outcome round-history__outcome--${entry.outcome}`}>
-                {outcomeLabels[entry.outcome]} · {entry.bet.toLocaleString()} tokens
+                {(outcomeLabels[entry.outcome] || entry.outcome)} · {entry.bet.toLocaleString()} tokens
               </p>
 
               {/* Shows the time the round ended */}
@@ -58,4 +60,3 @@ const RoundHistory = ({ history }) => {
 };
 
 export default RoundHistory;
-
