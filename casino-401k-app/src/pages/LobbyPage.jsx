@@ -27,6 +27,24 @@ const LobbyPage = () => {
             Sprint 1 delivers a working Blackjack table backed by a simple ledger. Place real bets (with fake
             tokens), watch balances update atomically, and preview what future sprints will unlock.
           </p>
+          {/* On-Track popup launcher: opens/focuses the calculator on the landing page */}
+          <div style={{ marginTop: '0.75rem' }}>
+            <Link
+              to="/"
+              className="cta-button cta-button--secondary"
+              onClick={() => {
+                try {
+                  localStorage.setItem('onTrackPopupOpen', 'true');
+                  localStorage.setItem('onTrackPopupFocus', 'true');
+                } catch {
+                  // Ignore storage errors; navigation will still occur
+                }
+              }}
+              aria-label="Open the On-Track retirement calculator on the landing page"
+            >
+              Open Retirement Calculator
+            </Link>
+          </div>
         </div>
         <div className="balance-tile">
           <p className="balance-tile__label">401k Tokens</p>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSupabaseAuth } from '../context/SupabaseAuthContext.jsx';
 import { upcomingOverview } from '../data/games.js';
@@ -11,13 +11,76 @@ const LandingPage = () => {
   // Pull current auth flag so we can show the correct CTA
   const { isAuthenticated } = useSupabaseAuth();
 
-  // Popup open/minimized state. Defaults to open so graders immediately see it.
-  const [popupOpen, setPopupOpen] = useState(true);
+  // Keys for localStorage to persist popup and calculator defaults
+  const LS_KEYS = {
+    open: 'onTrackPopupOpen',
+    focus: 'onTrackPopupFocus',
+    target: 'onTrackCalc.target',
+    current: 'onTrackCalc.current',
+    years: 'onTrackCalc.years',
+  };
+
+  // Helpers to read sane numeric defaults from localStorage
+  const readNumber = (key, fallback) => {
+    const raw = localStorage.getItem(key);
+    if (raw === null || raw === undefined) return fallback;
+    const n = Number(raw);
+    return Number.isFinite(n) && n >= 0 ? n : fallback;
+  };
+
+  // Popup open/minimized state. Persisted in localStorage; default open so graders see it.
+  const [popupOpen, setPopupOpen] = useState(() => {
+    const stored = localStorage.getItem(LS_KEYS.open);
+    return stored !== null ? stored === 'true' : true;
+  });
 
   // Calculator inputs (simple numeric state). Defaults chosen for demonstrative value.
-  const [landingTarget, setLandingTarget] = useState(401000); // tokens goal
-  const [landingCurrent, setLandingCurrent] = useState(0); // current tokens
-  const [landingYears, setLandingYears] = useState(30); // years until retirement
+  const [landingTarget, setLandingTarget] = useState(() => readNumber(LS_KEYS.target, 401000)); // tokens goal
+  const [landingCurrent, setLandingCurrent] = useState(() => readNumber(LS_KEYS.current, 0)); // current tokens
+  const [landingYears, setLandingYears] = useState(() => readNumber(LS_KEYS.years, 30)); // years until retirement
+
+  // Refs for accessibility/focus management
+  const firstInputRef = useRef(null);
+  const headerTitleId = 'ontrack-calculator-title';
+  const bodyRegionId = 'ontrack-calculator-panel';
+
+  // Persist popup state and calculator defaults when they change
+  useEffect(() => {
+    localStorage.setItem(LS_KEYS.open, String(popupOpen));
+  }, [popupOpen]);
+
+  useEffect(() => {
+    localStorage.setItem(LS_KEYS.target, String(landingTarget ?? ''));
+  }, [landingTarget]);
+  useEffect(() => {
+    localStorage.setItem(LS_KEYS.current, String(landingCurrent ?? ''));
+  }, [landingCurrent]);
+  useEffect(() => {
+    localStorage.setItem(LS_KEYS.years, String(landingYears ?? ''));
+  }, [landingYears]);
+
+  // If a focus request flag was set by another page (e.g., Lobby), honor it on mount
+  useEffect(() => {
+    const wantsFocus = localStorage.getItem(LS_KEYS.focus) === 'true';
+    if (wantsFocus) {
+      // Ensure open and then move focus inside after paint
+      setPopupOpen(true);
+      // Focus will be handled by the effect watching popupOpen
+      localStorage.removeItem(LS_KEYS.focus);
+    }
+  // We only want to check this once on mount
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // When popup opens, move focus to the first input for keyboard accessibility
+  useEffect(() => {
+    if (popupOpen) {
+      // Next tick to ensure input is in the DOM
+      setTimeout(() => {
+        firstInputRef.current?.focus();
+      }, 0);
+    }
+  }, [popupOpen]);
 
   // Primary CTA target and label change depending on auth state.
   const primaryCta = isAuthenticated ? '/lobby' : '/login';
@@ -63,16 +126,24 @@ const LandingPage = () => {
   return (
     <div className="page landing-page">
       {/* Popup: toggles between open and minimized via `popupOpen` state */}
-      <div className={`landing-popup ${popupOpen ? 'landing-popup--open' : 'landing-popup--min'}`}>
+      <div
+        className={`landing-popup ${popupOpen ? 'landing-popup--open' : 'landing-popup--min'}`}
+        role="dialog"
+        aria-modal="false"
+        aria-labelledby={headerTitleId}
+      >
         {/* Header row: title and controls */}
         <div className="landing-popup__header">
           {/* Strong element used as the visible title for the popup */}
-          <strong>Retirement Calculator</strong>
+          <strong id={headerTitleId}>On‑Track: Retirement Calculator</strong>
           <div className="landing-popup__controls">
             {/* Toggle button flips popupOpen; aria-label updates for a11y */}
             <button
               className="landing-popup__control"
               aria-label={popupOpen ? 'Minimize popup' : 'Open popup'}
+              aria-expanded={popupOpen}
+              aria-controls={bodyRegionId}
+              type="button"
               onClick={() => setPopupOpen((s) => !s)}
             >
               {popupOpen ? '–' : '+'}
@@ -82,12 +153,13 @@ const LandingPage = () => {
 
         {/* Body renders only when popupOpen is true */}
         {popupOpen && (
-          <div className="landing-popup__body">
-            {/* Short description explaining the calculator's simplified assumptions */}
+          <div className="landing-popup__body" id={bodyRegionId} role="region" aria-labelledby={headerTitleId}>
+            {/* Light-hearted, explanatory copy (v2) */}
             <p>
-              Calculator: enter a retirement target, current balance, and years until retirement.
-              We'll show the approximate tokens you must win per month to reach the goal (simple
-              linear projection — no interest or investment returns included).
+              Plot your glorious escape from the workforce. Tell us your target nest egg (in tokens),
+              how many you&apos;ve got now, and when you&apos;d like to sail into the sunset. We&apos;ll estimate how many
+              tokens you need to win each month to stay on track. It&apos;s a straight line — no compounding,
+              no market swings, just vibes and math.
             </p>
 
             {/* Calculator inputs: each labeled input updates local component state */}
@@ -101,6 +173,7 @@ const LandingPage = () => {
                   // Coerce to number when passing into the input to avoid React warnings
                   value={Number.isFinite(Number(landingTarget)) ? landingTarget : ''}
                   onChange={(e) => setLandingTarget(e.target.value)}
+                  ref={firstInputRef}
                   style={{ width: '100%', padding: '0.5rem', borderRadius: 8, border: '1px solid rgba(28,28,51,0.12)' }}
                 />
               </label>
