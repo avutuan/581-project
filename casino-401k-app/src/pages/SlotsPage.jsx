@@ -17,6 +17,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import GameShell from '../components/game/GameShell.jsx';
 import RoundHistory from '../components/game/RoundHistory.jsx';
 import { useSupabaseAccount } from '../context/SupabaseAccountContext.jsx';
+import BetSlip from '../components/game/BetSlip.jsx';
 
 // Fixed wager options for the slot machine
 const BET_OPTIONS = [100, 250, 500, 1000];
@@ -350,27 +351,25 @@ const SlotsPage = () => {
     };
   }, [autoPlay, spinning, insufficientFunds, handleSpin]);
 
+  const handleBetUpdate = useCallback((amount) => {
+    setSelectedBet(amount);
+    setStatus((prev) => ({
+      ...prev,
+      message: `Bet locked at ${amount.toLocaleString()} tokens.`
+    }));
+  }, []);
+
   // Sidebar content includes bet selection, paytable, and balance info
   const sidebar = (
     <>
-      <div className="game-sidebar-panel">
-        <h2>Bet options</h2>
-        <p className="game-sidebar-panel__note">Ledger debits the selected wager when Spin is tapped.</p>
-        <div className="slots-bets">
-          {BET_OPTIONS.map((option) => (
-            <button
-              key={option}
-              type="button"
-              className={`slots-bet ${selectedBet === option ? 'slots-bet--active' : ''}`}
-              onClick={() => setSelectedBet(option)}
-              disabled={option > balance || spinning}
-            >
-              {option.toLocaleString()} tokens
-            </button>
-          ))}
-        </div>
-        <p className="game-sidebar-panel__note">Balance: {balance.toLocaleString()} tokens</p>
-      </div>
+      <BetSlip
+        onSubmit={handleBetUpdate}
+        balance={balance}
+        disabled={spinning}
+        currentBet={selectedBet}
+        minBet={minBet}
+        maxBet={balance}
+      />
 
       <div className="game-sidebar-panel">
         <h2>Paytable (3 of a kind)</h2>
