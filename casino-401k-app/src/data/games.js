@@ -21,6 +21,13 @@ export const gameLineup = [
     description: 'Classic 2.0x payout blackjack with a reusable game shell and ledger settlement.'
   },
   {
+    id: 'roulette',
+    name: 'Roulette-Lite',
+    sprint: 'Sprint 3',
+    status: 'available',
+    description: 'Roulette‑lite: red/black only; 2.0x payout.'
+  },
+  {
     id: 'high-low',
     name: 'High-Low',
     sprint: 'Sprint 2',
