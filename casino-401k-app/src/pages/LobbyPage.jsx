@@ -28,21 +28,21 @@ const LobbyPage = () => {
             tokens), watch balances update atomically, and preview what future sprints will unlock.
           </p>
           {/* On-Track popup launcher: opens/focuses the calculator on the landing page */}
-          <div style={{ marginTop: '0.75rem' }}>
+          <div style={{ marginTop: '0.75rem' }}> {/* Spacing wrapper for launcher control */}
             <Link
-              to="/"
-              className="cta-button cta-button--secondary"
-              onClick={() => {
-                try {
-                  localStorage.setItem('onTrackPopupOpen', 'true');
-                  localStorage.setItem('onTrackPopupFocus', 'true');
-                } catch {
+              to="/" // Navigate back to landing page where calculator resides
+              className="cta-button cta-button--secondary" // Use secondary styling to differentiate from primary CTAs
+              onClick={() => { // Click handler sets persistence flags before navigation
+                try { // Guard against potential localStorage access errors
+                  localStorage.setItem('onTrackPopupOpen', 'true'); // Ensure popup will be open on load
+                  localStorage.setItem('onTrackPopupFocus', 'true'); // Request focus transfer into calculator input
+                } catch { // Silently ignore storage failures so navigation proceeds
                   // Ignore storage errors; navigation will still occur
                 }
               }}
-              aria-label="Open the On-Track retirement calculator on the landing page"
+              aria-label="Open the On-Track retirement calculator on the landing page" // Accessible label describing action
             >
-              Open Retirement Calculator
+              Open Retirement Calculator {/* Visible link text for users */}
             </Link>
           </div>
         </div>

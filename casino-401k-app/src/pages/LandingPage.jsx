@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react'; // Import hooks for state, persistence side-effects, and focus refs
 import { Link } from 'react-router-dom';
 import { useSupabaseAuth } from '../context/SupabaseAuthContext.jsx';
 import { upcomingOverview } from '../data/games.js';
@@ -12,75 +12,71 @@ const LandingPage = () => {
   const { isAuthenticated } = useSupabaseAuth();
 
   // Keys for localStorage to persist popup and calculator defaults
-  const LS_KEYS = {
-    open: 'onTrackPopupOpen',
-    focus: 'onTrackPopupFocus',
-    target: 'onTrackCalc.target',
-    current: 'onTrackCalc.current',
-    years: 'onTrackCalc.years',
+  const LS_KEYS = { // Centralized localStorage key registry for consistency & avoidance of string duplication
+    open: 'onTrackPopupOpen', // Stores boolean string indicating whether popup is open
+    focus: 'onTrackPopupFocus', // Flag set cross-page to request focus when landing loads
+    target: 'onTrackCalc.target', // Persisted retirement target value
+    current: 'onTrackCalc.current', // Persisted current balance value
+    years: 'onTrackCalc.years', // Persisted years until retirement value
   };
 
   // Helpers to read sane numeric defaults from localStorage
-  const readNumber = (key, fallback) => {
-    const raw = localStorage.getItem(key);
-    if (raw === null || raw === undefined) return fallback;
-    const n = Number(raw);
-    return Number.isFinite(n) && n >= 0 ? n : fallback;
+  const readNumber = (key, fallback) => { // Safely parse a non-negative numeric value from localStorage or return fallback
+    const raw = localStorage.getItem(key); // Fetch raw string from localStorage
+    if (raw === null || raw === undefined) return fallback; // If missing, use fallback default
+    const n = Number(raw); // Convert string to number
+    return Number.isFinite(n) && n >= 0 ? n : fallback; // Validate finite & non-negative else fallback
   };
 
   // Popup open/minimized state. Persisted in localStorage; default open so graders see it.
-  const [popupOpen, setPopupOpen] = useState(() => {
-    const stored = localStorage.getItem(LS_KEYS.open);
-    return stored !== null ? stored === 'true' : true;
+  const [popupOpen, setPopupOpen] = useState(() => { // Popup open state with lazy initializer reading persisted state
+    const stored = localStorage.getItem(LS_KEYS.open); // Retrieve persisted open flag
+    return stored !== null ? stored === 'true' : true; // If stored, coerce to boolean; else default open for visibility
   });
 
   // Calculator inputs (simple numeric state). Defaults chosen for demonstrative value.
-  const [landingTarget, setLandingTarget] = useState(() => readNumber(LS_KEYS.target, 401000)); // tokens goal
-  const [landingCurrent, setLandingCurrent] = useState(() => readNumber(LS_KEYS.current, 0)); // current tokens
-  const [landingYears, setLandingYears] = useState(() => readNumber(LS_KEYS.years, 30)); // years until retirement
+  const [landingTarget, setLandingTarget] = useState(() => readNumber(LS_KEYS.target, 401000)); // tokens goal (persisted or default 401k parody)
+  const [landingCurrent, setLandingCurrent] = useState(() => readNumber(LS_KEYS.current, 0)); // current tokens (persisted or start at 0)
+  const [landingYears, setLandingYears] = useState(() => readNumber(LS_KEYS.years, 30)); // years until retirement (persisted or default span)
 
   // Refs for accessibility/focus management
-  const firstInputRef = useRef(null);
-  const headerTitleId = 'ontrack-calculator-title';
-  const bodyRegionId = 'ontrack-calculator-panel';
+  const firstInputRef = useRef(null); // Ref pointing to first input for focus management on open
+  const headerTitleId = 'ontrack-calculator-title'; // Stable ID for aria-labelledby linking title to dialog & region
+  const bodyRegionId = 'ontrack-calculator-panel'; // Stable ID for expanded region body container
 
   // Persist popup state and calculator defaults when they change
-  useEffect(() => {
-    localStorage.setItem(LS_KEYS.open, String(popupOpen));
+  useEffect(() => { // Persist popup open/minimized state whenever it changes
+    localStorage.setItem(LS_KEYS.open, String(popupOpen)); // Store boolean state as string
   }, [popupOpen]);
 
-  useEffect(() => {
-    localStorage.setItem(LS_KEYS.target, String(landingTarget ?? ''));
+  useEffect(() => { // Persist target input value changes
+    localStorage.setItem(LS_KEYS.target, String(landingTarget ?? '')); // Safely stringify value for storage
   }, [landingTarget]);
-  useEffect(() => {
-    localStorage.setItem(LS_KEYS.current, String(landingCurrent ?? ''));
+  useEffect(() => { // Persist current balance input value changes
+    localStorage.setItem(LS_KEYS.current, String(landingCurrent ?? '')); // Save updated current balance
   }, [landingCurrent]);
-  useEffect(() => {
-    localStorage.setItem(LS_KEYS.years, String(landingYears ?? ''));
+  useEffect(() => { // Persist years until retirement input value changes
+    localStorage.setItem(LS_KEYS.years, String(landingYears ?? '')); // Save updated years span
   }, [landingYears]);
 
   // If a focus request flag was set by another page (e.g., Lobby), honor it on mount
-  useEffect(() => {
-    const wantsFocus = localStorage.getItem(LS_KEYS.focus) === 'true';
-    if (wantsFocus) {
-      // Ensure open and then move focus inside after paint
-      setPopupOpen(true);
-      // Focus will be handled by the effect watching popupOpen
-      localStorage.removeItem(LS_KEYS.focus);
+  useEffect(() => { // One-time mount effect: handle cross-page focus request
+    const wantsFocus = localStorage.getItem(LS_KEYS.focus) === 'true'; // Read focus flag from storage
+    if (wantsFocus) { // If another page requested focus
+      setPopupOpen(true); // Force popup open to ensure focus target exists
+      localStorage.removeItem(LS_KEYS.focus); // Clear flag so it doesn't repeat on future visits
     }
-  // We only want to check this once on mount
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps // Suppress exhaustive-deps since we intentionally run once
+  }, []); // Empty dependency -> run only on first render
 
   // When popup opens, move focus to the first input for keyboard accessibility
-  useEffect(() => {
-    if (popupOpen) {
-      // Next tick to ensure input is in the DOM
-      setTimeout(() => {
-        firstInputRef.current?.focus();
-      }, 0);
+  useEffect(() => { // Effect to focus first input when popup transitions to open
+    if (popupOpen) { // Only act when now open
+      setTimeout(() => { // Defer to next tick to allow DOM to render the input
+        firstInputRef.current?.focus(); // Focus input if ref resolved (optional chaining prevents errors)
+      }, 0); // Zero delay -> schedule after current call stack
     }
-  }, [popupOpen]);
+  }, [popupOpen]); // Depend on popupOpen so runs on toggle state change
 
   // Primary CTA target and label change depending on auth state.
   const primaryCta = isAuthenticated ? '/lobby' : '/login';
@@ -127,24 +123,24 @@ const LandingPage = () => {
     <div className="page landing-page">
       {/* Popup: toggles between open and minimized via `popupOpen` state */}
       <div
-        className={`landing-popup ${popupOpen ? 'landing-popup--open' : 'landing-popup--min'}`}
-        role="dialog"
-        aria-modal="false"
-        aria-labelledby={headerTitleId}
+        className={`landing-popup ${popupOpen ? 'landing-popup--open' : 'landing-popup--min'}`} // Dynamic class list reflecting open/minimized state
+        role="dialog" // Acts as a non-modal dialog region for assistive tech
+        aria-modal="false" // Explicitly non-modal so background remains accessible
+        aria-labelledby={headerTitleId} // Links dialog to its title element for labeling
       >
         {/* Header row: title and controls */}
         <div className="landing-popup__header">
           {/* Strong element used as the visible title for the popup */}
-          <strong id={headerTitleId}>On‑Track: Retirement Calculator</strong>
+          <strong id={headerTitleId}>Retirement Calculator</strong> {/* Title element labeled via ID for dialog and region */}
           <div className="landing-popup__controls">
             {/* Toggle button flips popupOpen; aria-label updates for a11y */}
             <button
-              className="landing-popup__control"
-              aria-label={popupOpen ? 'Minimize popup' : 'Open popup'}
-              aria-expanded={popupOpen}
-              aria-controls={bodyRegionId}
-              type="button"
-              onClick={() => setPopupOpen((s) => !s)}
+              className="landing-popup__control" // Styling hook for toggle control
+              aria-label={popupOpen ? 'Minimize popup' : 'Open popup'} // Accessible name describing current action
+              aria-expanded={popupOpen} // Communicates expanded/collapsed state to AT
+              aria-controls={bodyRegionId} // References the ID of the collapsible region
+              type="button" // Explicit button type to avoid default form submit behavior
+              onClick={() => setPopupOpen((s) => !s)} // Toggle popup open state using functional updater
             >
               {popupOpen ? '–' : '+'}
             </button>
@@ -152,10 +148,10 @@ const LandingPage = () => {
         </div>
 
         {/* Body renders only when popupOpen is true */}
-        {popupOpen && (
-          <div className="landing-popup__body" id={bodyRegionId} role="region" aria-labelledby={headerTitleId}>
+        {popupOpen && ( // Conditionally render body only when popup is open
+          <div className="landing-popup__body" id={bodyRegionId} role="region" aria-labelledby={headerTitleId}> {/* Region container with semantic labeling */}
             {/* Light-hearted, explanatory copy (v2) */}
-            <p>
+            <p> {/* Explanatory copy elaborating purpose and limitations of calculator */}
               Plot your glorious escape from the workforce. Tell us your target nest egg (in tokens),
               how many you&apos;ve got now, and when you&apos;d like to sail into the sunset. We&apos;ll estimate how many
               tokens you need to win each month to stay on track. It&apos;s a straight line — no compounding,
@@ -167,14 +163,14 @@ const LandingPage = () => {
               <label style={{ fontSize: 12, color: '#5c5c80' }}>
                 Retirement target (tokens)
                 <input
-                  type="number"
-                  min="0"
-                  step="1"
+                  type="number" // Numeric input for target token amount
+                  min="0" // Prevent negative targets
+                  step="1" // Whole token increments
                   // Coerce to number when passing into the input to avoid React warnings
-                  value={Number.isFinite(Number(landingTarget)) ? landingTarget : ''}
-                  onChange={(e) => setLandingTarget(e.target.value)}
-                  ref={firstInputRef}
-                  style={{ width: '100%', padding: '0.5rem', borderRadius: 8, border: '1px solid rgba(28,28,51,0.12)' }}
+                  value={Number.isFinite(Number(landingTarget)) ? landingTarget : ''} // Controlled value with fallback to empty string if invalid
+                  onChange={(e) => setLandingTarget(e.target.value)} // Update state from user input (stored as string then coerced later)
+                  ref={firstInputRef} // Focus target when popup opens
+                  style={{ width: '100%', padding: '0.5rem', borderRadius: 8, border: '1px solid rgba(28,28,51,0.12)' }} // Inline styling for visual consistency
                 />
               </label>
 
