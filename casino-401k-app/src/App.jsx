@@ -21,6 +21,7 @@ import LandingPage from './pages/LandingPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import LobbyPage from './pages/LobbyPage.jsx';
 import BlackjackPage from './pages/BlackjackPage.jsx';
+import RoulettePage from './pages/RoulettePage.jsx';
 import WalletPage from './pages/WalletPage.jsx';
 import GamePlaceholderPage from './pages/GamePlaceholderPage.jsx';
 import HighLowPage from './pages/HighLowPage.jsx';
@@ -44,6 +45,7 @@ const AppLayout = () => (
           <Route path="/lobby" element={<LobbyPage />} />
           <Route path="/wallet" element={<WalletPage />} />
           <Route path="/game/blackjack" element={<BlackjackPage />} />
+          <Route path="/game/roulette" element={<RoulettePage />} />
           <Route path="/game/high-low" element={<HighLowPage />} />
           <Route path="/game/:gameId" element={<GamePlaceholderPage />} />
         </Route>

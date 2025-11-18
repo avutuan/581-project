@@ -59,6 +59,10 @@ const SiteHeader = () => {
         <NavLink to="/game/high-low" className={({ isActive }) => isActive ? 'nav-link nav-link--active' : 'nav-link'}>
           High-Low
         </NavLink>
+        {/* Roulette link */}
+        <NavLink to="/game/roulette" className={({ isActive }) => isActive ? 'nav-link nav-link--active' : 'nav-link'}>
+          Roulette
+        </NavLink>
         {/* Slots Mini link */}
         <NavLink to="/game/slots" className={({ isActive }) => isActive ? 'nav-link nav-link--active' : 'nav-link'}>
           Slots Mini
