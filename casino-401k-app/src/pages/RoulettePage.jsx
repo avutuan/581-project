@@ -1,9 +1,10 @@
 /**
  * ----------------------------------------------------------
- * Roulette-Lite Game Page
+ * Roulette-Lite Game Page Component
  * ----------------------------------------------------------
  * Author: Changwen Gong
- * Last Modified: 2025/11/17
+ * Created: 2025/11/17
+ * Last Modified: 2025/11/18
  *
  * Description:
  * This React component implements a simplified Roulette game
@@ -11,7 +12,18 @@
  * bets on either red or black, spin the wheel, and receive
  * their winnings if they guess correctly.
  *
- * Basically, this is a coin-flip style roulette game.
+ * Inputs:
+ * - None (uses context providers for balance and transactions)
+ *
+ * Outputs:
+ * - Renders a game interface with color selection, spinning wheel,
+ *   betting controls, and round history
+ * - Updates user balance through SupabaseAccountContext
+ *
+ * External Sources:
+ * - GitHub Copilot: Assisted with wheel rotation calculations and
+ *   CSS animations for the spinning wheel effect
+ * - React documentation: useState hooks and component structure
  * ----------------------------------------------------------
  */
 
