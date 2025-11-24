@@ -24,8 +24,8 @@ const LobbyPage = () => {
           <p className="lobby-hero__eyebrow">Welcome, {currentUser?.email}</p>
           <h1>Tonight&apos;s satirical bankroll</h1>
           <p>
-            Sprint 1 delivers a working Blackjack table backed by a simple ledger. Place real bets (with fake
-            tokens), watch balances update atomically, and preview what future sprints will unlock.
+            Blackjack landed in Sprint 1 and now shares the floor with High-Low and Slots Mini. Every wager still
+            runs through the same satirical ledger, so bets debit instantly and wins credit straight back.
           </p>
           {/* On-Track popup launcher: opens/focuses the calculator on the landing page */}
           <div style={{ marginTop: '0.75rem' }}> {/* Spacing wrapper for launcher control */}
@@ -58,7 +58,7 @@ const LobbyPage = () => {
     <section className="games-section">
         <header className="section-header">
           <h2>Game lineup</h2>
-          <p>Only Blackjack is live for Sprint 1. The rest are neatly placeholdered.</p>
+          <p>Blackjack, High-Low, and Slots Mini are live; everything else stays placeholdered until future sprints.</p>
         </header>
         <div className="games-grid">
           {gameLineup.map((game) => (
