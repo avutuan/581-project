@@ -1,3 +1,12 @@
+/*
+Prologue Comments:
+- Component: LobbyPage — lobby view showing balance, available games, and a recent ledger snapshot.
+- Inputs: Auth user data via useSupabaseAuth, account state via useSupabaseAccount, and game metadata via gameLineup and sprintPlaceholders.
+- Outputs: JSX that renders the lobby layout with CTAs, game cards, and a transactions preview list.
+- External sources: None.
+- Author: Raj Kaura; Creation date: Nov 15th.
+*/
+
 import { Link } from 'react-router-dom';
 import { useSupabaseAuth } from '../context/SupabaseAuthContext.jsx';
 import { useSupabaseAccount } from '../context/SupabaseAccountContext.jsx';

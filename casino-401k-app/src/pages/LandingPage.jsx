@@ -1,3 +1,12 @@
+/*
+Prologue Comments:
+- Component: LandingPage — landing and overview screen with hero content plus an inline retirement calculator popup.
+- Inputs: Auth state via useSupabaseAuth, upcomingOverview feature data, and localStorage-persisted calculator values.
+- Outputs: JSX that renders the landing experience with calls-to-action and an interactive calculator dialog.
+- External sources: None.
+- Author: Raj Kaura; Creation date: Nov 15th.
+*/
+
 import React, { useEffect, useRef, useState } from 'react'; // Import hooks for state, persistence side-effects, and focus refs
 import { Link } from 'react-router-dom';
 import { useSupabaseAuth } from '../context/SupabaseAuthContext.jsx';

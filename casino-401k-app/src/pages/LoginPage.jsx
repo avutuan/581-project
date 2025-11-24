@@ -1,3 +1,12 @@
+/*
+Prologue Comments:
+- Component: LoginPage — combined login and registration view powered by Supabase auth context.
+- Inputs: Auth helpers (login/register/isAuthenticated) via useSupabaseAuth; router hooks for navigation and location state; form field values from user input.
+- Outputs: JSX rendering the auth form that redirects to lobby or prior route on success.
+- External sources: None.
+- Author: Kobe Jordan and John Tran; Creation date: Nov 12th.
+*/
+
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSupabaseAuth } from '../context/SupabaseAuthContext.jsx';
