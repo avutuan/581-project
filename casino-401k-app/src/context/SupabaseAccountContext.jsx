@@ -272,6 +272,31 @@ export const SupabaseAccountProvider = ({ children }) => {
   );
 
   /**
+   * Get last 200 transactions for CSV export
+   */
+  const getTransactionsForExport = useCallback(
+    async () => {
+      if (!currentUser) return [];
+
+      try {
+        const { data, error } = await supabase
+          .from('transactions')
+          .select('*')
+          .eq('user_id', currentUser.id)
+          .order('created_at', { ascending: false })
+          .limit(200);
+
+        if (error) throw error;
+        return data || [];
+      } catch (error) {
+        console.error('Error fetching transactions for export:', error);
+        return [];
+      }
+    },
+    [currentUser]
+  );
+
+  /**
    * Reset account to initial balance (for demo/testing)
    * In production, you might want to restrict this
    */
@@ -331,6 +356,7 @@ export const SupabaseAccountProvider = ({ children }) => {
       credit,
       recordGameSession,
       getGameHistory,
+      getTransactionsForExport,
       resetAccount,
       isReady: Boolean(currentUser) ? isReady : true,
       loading
@@ -343,6 +369,7 @@ export const SupabaseAccountProvider = ({ children }) => {
       credit,
       recordGameSession,
       getGameHistory,
+      getTransactionsForExport,
       resetAccount,
       isReady,
       loading,

@@ -23,6 +23,7 @@
  */
 
 import { useSupabaseAccount } from '../../context/SupabaseAccountContext.jsx';
+import ExportCSVButton from './ExportCSVButton.jsx';
 
 const WalletPanel = () => {
   // Access user's balance and transaction history from Supabase account context
@@ -45,8 +46,15 @@ const WalletPanel = () => {
     <div className="wallet-panel">
       {/* Wallet Header Section */}
       <div className="wallet-header">
-        <h2>💰 Your Wallet</h2>
-        <p className="wallet-subtitle">Track your balance and transaction history</p>
+        <div className="wallet-header__content">
+          <div>
+            <h2>💰 Your Wallet</h2>
+            <p className="wallet-subtitle">Track your balance and transaction history</p>
+          </div>
+          <div className="wallet-header__actions">
+            <ExportCSVButton />
+          </div>
+        </div>
       </div>
 
       {/* Statistics Cards Grid - displays key wallet metrics */}

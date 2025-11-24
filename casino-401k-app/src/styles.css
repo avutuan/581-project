@@ -949,9 +949,15 @@ textarea {
    ======================================== */
 .wallet-page { max-width: 1200px; margin: 0 auto; }
 .wallet-panel { background: white; border-radius: 28px; padding: 2.5rem; box-shadow: 0 28px 50px rgba(77, 47, 255, 0.14); }
-.wallet-header { margin-bottom: 2rem; text-align: center; }
+.wallet-header { margin-bottom: 2rem; }
+.wallet-header__content { display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
 .wallet-header h2 { font-size: 2rem; margin-bottom: 0.5rem; }
 .wallet-subtitle { color: #4d4d74; margin: 0; }
+.wallet-header__actions { display: flex; align-items: center; }
+.export-csv-button { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: linear-gradient(135deg, #6d36ff, #8354ff); color: white; border-radius: 12px; border: none; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(109, 54, 255, 0.25); cursor: pointer; }
+.export-csv-button:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(109, 54, 255, 0.35); }
+.export-csv-button:active:not(:disabled) { transform: translateY(0); }
+.export-csv-button:disabled { opacity: 0.5; cursor: not-allowed; }
 .wallet-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
 .wallet-stat-card { background: rgba(109, 54, 255, 0.05); border-radius: 20px; padding: 1.5rem; text-align: center; border: 1px solid rgba(109, 54, 255, 0.1); }
 .wallet-stat-card--primary { background: linear-gradient(135deg, rgba(109, 54, 255, 0.1), rgba(255, 62, 132, 0.1)); border-color: #6d36ff; }
