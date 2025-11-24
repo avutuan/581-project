@@ -1,16 +1,9 @@
 /**
- * ----------------------------------------------------------
- * Slots Mini Page
- * ----------------------------------------------------------
- * Author: Codex Automation
- * Last Modified: 2025/02/09
- *
- * Description:
- * Implements a compact three-reel slot machine with fixed paylines
- * and discrete bet sizes. Bets are debited via the Supabase ledger
- * before a spin resolves, and any winnings are credited back along
- * with a recorded game session payload to mimic server settlement.
- * ----------------------------------------------------------
+ * Prologue Comments:
+ * - Module: SlotsPage (React page component). Renders the Slots Mini experience with three reels, fixed paylines, ledger-settled bets, flashy animations, and auto-spin support.
+ * - Inputs: Internal React state; Supabase account context (balance, debit, credit, recordGameSession); no external props. Outputs: JSX UI plus ledger/game-session side effects for each spin.
+ * - External sources: None (original implementation; no third-party snippets or external AI beyond project context).
+ * - Author: John Tran — Creation Date: Nov 14
  */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
