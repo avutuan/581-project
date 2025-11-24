@@ -71,13 +71,56 @@ const BetSlip = ({
     onSubmit(amount);
   };
 
-  // Quick bet buttons scaled by balance
-  const quickBets = [minBet, Math.floor(balance * 0.25), Math.floor(balance * 0.5), Math.floor(balance * 0.75)]
-    .filter((val) => val <= (maxBet || balance) && val >= minBet);
+  // Quick bet buttons: produce exactly three suggestions (min, 25%, 50%), clamped to cap
+  const betCap = maxBet || balance;
+  const insufficientBalance = balance < minBet;
+
+  const computedQuick = [
+    minBet,
+    Math.max(minBet, Math.floor(balance * 0.25)),
+    Math.max(minBet, Math.floor(balance * 0.5)),
+  ].map((v) => Math.min(v, betCap));
+
+  // remove duplicates while preserving order
+  const quickBets = Array.from(new Set(computedQuick));
+
+  // Global keyboard listener for Shift+Arrows: map to quick bet indices
+  useEffect(() => {
+    const onKey = (e) => {
+      if (!e.shiftKey) return;
+      if (disabled || insufficientBalance) return;
+
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const v = quickBets[0];
+        if (v != null) {
+          setAmount(v);
+          onSubmit(v);
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const v = quickBets[1];
+        if (v != null) {
+          setAmount(v);
+          onSubmit(v);
+        }
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+        e.preventDefault();
+        const v = quickBets[2];
+        if (v != null) {
+          setAmount(v);
+          onSubmit(v);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [quickBets, disabled, insufficientBalance]);
 
   return (
-    <form className="bet-slip" onSubmit={handleSubmit}>
-      <h2>Bet Slip</h2>
+    <form className="bet-slip" onSubmit={handleSubmit} aria-labelledby="betslip-heading">
+      <h2 id="betslip-heading">Bet Slip</h2>
 
       <label htmlFor="betAmount">Bet amount</label>
       <input
@@ -89,16 +132,36 @@ const BetSlip = ({
         value={amount}
         onChange={handleChange}
         disabled={disabled}
+        aria-describedby={`bet-balance-hint ${error ? 'bet-error' : ''}`.trim()}
+        aria-invalid={!!error}
+        aria-required="true"
       />
 
-      <p className="bet-slip__hint">Balance: {formatNumber(balance)} tokens</p>
+      <p id="bet-balance-hint" className="bet-slip__hint">Balance: {formatNumber(balance)} tokens</p>
 
-      <div className="bet-slip__quickbets">
-        {quickBets.map((value) => (
-          <button key={value} type="button" onClick={() => setAmount(value)} disabled={disabled}>
-            {formatNumber(value)}
-          </button>
-        ))}
+      <div className="bet-slip__shortcuts" aria-hidden="true">
+        <span className="kbd">Shift + ←</span>
+        <span className="kbd">Shift + ↑</span>
+        <span className="kbd">Shift + →</span>
+      </div>
+
+      <div className="bet-slip__quickbets" role="group" aria-label="Quick bet amounts">
+        {quickBets.length === 0 ? (
+          <p className="bet-slip__hint">No quick bet suggestions available. Enter an amount above or top up your Wallet to see suggestions.</p>
+        ) : (
+          quickBets.map((value, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => setAmount(value)}
+              disabled={disabled || insufficientBalance}
+              aria-label={`Quick bet ${i + 1}: ${formatNumber(value)} tokens (Shift+${i === 0 ? 'Left' : i === 1 ? 'Up' : 'Down or Right'})`}
+              title={`Quick bet: ${formatNumber(value)} tokens`}
+            >
+              {formatNumber(value)}
+            </button>
+          ))
+        )}
       </div>
 
       {error && <p className="form-error">{error}</p>}
