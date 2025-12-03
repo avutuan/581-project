@@ -1,3 +1,12 @@
+/*
+Prologue Comments:
+- ProtectedRoute: This component is a route guard that ensures a user is authenticated before rendering a protected route.
+- Inputs: None.
+- Outputs: Renders the nested route or redirects to the login page.
+- External sources: None.
+- Author: John Tran, Creation date: 2025-11-09
+*/
+
 // Import navigation utilities from React Router: Navigate for redirects,
 // Outlet to render nested routes, useLocation to capture current route.
 import { Navigate, Outlet, useLocation } from 'react-router-dom';

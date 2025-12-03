@@ -1,3 +1,12 @@
+/*
+Prologue Comments:
+- SiteFooter: This component displays the site footer.
+- Inputs: None.
+- Outputs: Renders the site footer.
+- External sources: None.
+- Author: John Tran, Creation date: 2025-11-09
+*/
+
 // Component: SiteFooter
 // Purpose: Display a satirical disclaimer and a roadmap note.
 // Notes: Pure presentational; no props or state required.

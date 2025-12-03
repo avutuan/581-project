@@ -1,3 +1,12 @@
+/*
+Prologue Comments:
+- supabase: This is the Supabase client instance.
+- Inputs: None.
+- Outputs: A Supabase client instance.
+- External sources: None.
+- Author: John Tran, Creation date: 2025-11-09
+*/
+
 import { createClient } from '@supabase/supabase-js';
 
 
