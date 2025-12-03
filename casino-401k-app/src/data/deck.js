@@ -11,7 +11,7 @@
  */
 
 // Definitions for card ranks
-const RANKS = [
+const RANKS_HIGHLOW = [
   { rank: 'A', value: 1 },
   { rank: '2', value: 2 },
   { rank: '3', value: 3 },
@@ -27,6 +27,22 @@ const RANKS = [
   { rank: 'K', value: 13 }
 ];
 
+const RANKS_BLACKJACK = [
+  { rank: 'A', value: 11 },
+  { rank: '2', value: 2 },
+  { rank: '3', value: 3 },
+  { rank: '4', value: 4 },
+  { rank: '5', value: 5 },
+  { rank: '6', value: 6 },
+  { rank: '7', value: 7 },
+  { rank: '8', value: 8 },
+  { rank: '9', value: 9 },
+  { rank: '10', value: 10 },
+  { rank: 'J', value: 10 },
+  { rank: 'Q', value: 10 },
+  { rank: 'K', value: 10 }
+];
+
 // Definitions for card suits
 const SUITS = [
   { symbol: '♠', suitColor: 'dark' },
@@ -36,10 +52,25 @@ const SUITS = [
 ];
 
 // Function to create a standard 52-card deck
-export const createDeck = () => {
+export const createHighLowDeck = () => {
   const deck = [];
   SUITS.forEach((suit) => {
-    RANKS.forEach((rank) => {
+    RANKS_HIGHLOW.forEach((rank) => {
+      deck.push({
+        ...rank,
+        suit: suit.symbol,
+        suitColor: suit.suitColor,
+        code: `${rank.rank}${suit.symbol}`
+      });
+    });
+  });
+  return deck;
+};
+
+export const createBlackJackDeck = () => {
+  const deck = [];
+  SUITS.forEach((suit) => {
+    RANKS_BLACKJACK.forEach((rank) => {
       deck.push({
         ...rank,
         suit: suit.symbol,

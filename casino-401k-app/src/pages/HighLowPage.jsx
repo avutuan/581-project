@@ -16,7 +16,7 @@ import GameShell from '../components/game/GameShell.jsx';
 import BetSlip from '../components/game/BetSlip.jsx';
 import HandDisplay from '../components/game/HandDisplay.jsx';
 import RoundHistory from '../components/game/RoundHistory.jsx';
-import { createDeck, shuffle } from '../data/deck.js';
+import { createHighLowDeck, shuffle } from '../data/deck.js';
 
 // Initial state for a High Low game round
 const INITIAL = {
@@ -44,7 +44,7 @@ const HighLowPage = () => {
   // Function to start a new round
   const startRound = (amount) => {
     // Shuffle the deck and draw the first card
-    const deck = shuffle(createDeck());
+    const deck = shuffle(createHighLowDeck());
     const first = deck.pop();
 
     // Update state to waiting for player's choice

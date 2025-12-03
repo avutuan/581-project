@@ -19,7 +19,7 @@ import GameShell from '../components/game/GameShell.jsx';
 import BetSlip from '../components/game/BetSlip.jsx';
 import HandDisplay from '../components/game/HandDisplay.jsx';
 import RoundHistory from '../components/game/RoundHistory.jsx';
-import { createDeck, shuffle } from '../data/deck.js';
+import { createBlackJackDeck, shuffle } from '../data/deck.js';
 
 // Initial state for a Blackjack game round
 const INITIAL_ROUND = {
@@ -203,7 +203,7 @@ const BlackjackPage = () => {
   // Function to start a new round
   const startRound = (amount) => {
     // Create and shuffle a new deck
-    const deck = shuffle(createDeck());
+    const deck = shuffle(createBlackJackDeck());
     // Deal initial hands
     const playerHand = [deck.pop(), deck.pop()];
     const dealerHand = [deck.pop(), deck.pop()];
