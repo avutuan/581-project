@@ -1,3 +1,15 @@
+/*
+Prologue Comments:
+- SupabaseAuthProvider: This component provides authentication-related data and actions to its children.
+- Inputs: children.
+- Outputs: Provides authentication context to its children.
+- useSupabaseAuth: This is a custom hook to consume the SupabaseAuthContext.
+- Inputs: None.
+- Outputs: The authentication context.
+- External sources: None.
+- Author: John Tran, Creation date: 2025-11-09
+*/
+
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { supabase } from '../lib/supabaseClient.js';
 

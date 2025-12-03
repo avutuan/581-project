@@ -1,3 +1,15 @@
+/*
+Prologue Comments:
+- SupabaseAccountProvider: This component provides account-related data and actions to its children.
+- Inputs: children.
+- Outputs: Provides account context to its children.
+- useSupabaseAccount: This is a custom hook to consume the SupabaseAccountContext.
+- Inputs: None.
+- Outputs: The account context.
+- External sources: None.
+- Author: John Tran, Creation date: 2025-11-09
+*/
+
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { supabase } from '../lib/supabaseClient.js';
 import { useSupabaseAuth } from './SupabaseAuthContext.jsx';

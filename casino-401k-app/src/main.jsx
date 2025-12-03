@@ -1,3 +1,12 @@
+/*
+Prologue Comments:
+- main: This is the entry point of the application. It renders the root component and sets up the providers.
+- Inputs: None.
+- Outputs: Renders the application.
+- External sources: None.
+- Author: John Tran, Creation date: 2025-11-09
+*/
+
 // Import core React library
 import React from 'react';
 // Import the modern root API from ReactDOM (for createRoot)

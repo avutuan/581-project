@@ -1,3 +1,12 @@
+/*
+Prologue Comments:
+- NotFoundPage: This component is displayed when a route is not found.
+- Inputs: None.
+- Outputs: Renders a 404 page.
+- External sources: None.
+- Author: John Tran, Creation date: 2025-11-09
+*/
+
 // Import Link for client-side navigation
 import { Link } from 'react-router-dom';
 
