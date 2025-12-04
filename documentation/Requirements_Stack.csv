@@ -5,17 +5,16 @@ Requirement ID,Description,Story Points,Priority,Sprint No.
 4,"Accessibility baseline: semantic HTML, keyboard navigation, color contrast checks, and screen‑reader labels for interactive elements.",5,4,3
 5,Create simulated ‘401k tokens’ ledger with initial demo balance assignment on onboarding.,5,5,1
 6,"Wallet UI to show current token balance, recent transactions, and filters (date, game, result).",5,6,2
-7,Server‑side transaction recording with idempotency keys to prevent duplicate writes.,3,7,
-8,"Blackjack game engine: hit/stand/double/split rules, dealer behavior, payout logic, and deck shoe management.",13,8,1
-9,"Roulette game engine: inside/outside bets, spin resolution, and payout calculation.",13,9,3
-10,"Slots engine: reel configuration, paylines, volatility settings, and spin resolution with animations.",8,10,3
-11,"Unified game interface shell with reusable bet slip, balance updates, and result modals.",5,11,2
-12,"Game history per user: browsable list of past rounds with inputs, RNG seed/hash, and outcomes.",5,12,3
-13,Risk explainer: show expected value (house edge) per game and example loss distributions with short educational text.,3,13,2
-14,"Practice scenarios: guided walkthrough explaining odds, common misconceptions, and bankroll management concepts.",8,14,2
-15,"Responsive layout for mobile, tablet, and desktop with smooth transitions between lobby and games.",5,15,2
-16,"Design system tokens for colors, spacing, typography; implement reusable button, input, card components.",5,16,1
-17,"Lobby page listing available games, RTP estimates, and quick‑start tiles.",3,17,1
-18,Animations for wins/losses and balance changes with reduced‑motion preference respected.,3,19,3
-19,Input validation and server‑side schema enforcement for all game actions and wallet operations.,5,20,2
-20,Error handling UI with retry guidance; central exception logging on server.,3,21,1
+7,"Blackjack game engine: hit/stand/double/split rules, dealer behavior, payout logic, and deck shoe management.",13,7,1
+8,"Roulette game engine: inside/outside bets, spin resolution, and payout calculation.",13,8,3
+9,"Slots engine: reel configuration, paylines, volatility settings, and spin resolution with animations.",8,9,3
+10,"Unified game interface shell with reusable bet slip, balance updates, and result modals.",5,10,2
+11,"Game history per user: browsable list of past rounds with inputs, RNG seed/hash, and outcomes.",5,11,3
+12,Risk explainer: show expected value (house edge) per game and example loss distributions with short educational text.,3,12,2
+13,"Practice scenarios: guided walkthrough explaining odds, common misconceptions, and bankroll management concepts.",8,13,2
+14,"Responsive layout for mobile, tablet, and desktop with smooth transitions between lobby and games.",5,14,2
+15,"Design system tokens for colors, spacing, typography; implement reusable button, input, card components.",5,15,1
+16,"Lobby page listing available games, RTP estimates, and quick‑start tiles.",3,16,1
+17,Animations for wins/losses and balance changes with reduced‑motion preference respected.,3,17,3
+18,Input validation and server‑side schema enforcement for all game actions and wallet operations.,5,18,2
+19,Error handling UI with retry guidance; central exception logging on server.,3,19,1
