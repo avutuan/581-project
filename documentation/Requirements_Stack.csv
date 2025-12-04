@@ -9,12 +9,9 @@ Requirement ID,Description,Story Points,Priority,Sprint No.
 8,"Roulette game engine: inside/outside bets, spin resolution, and payout calculation.",13,8,3
 9,"Slots engine: reel configuration, paylines, volatility settings, and spin resolution with animations.",8,9,3
 10,"Unified game interface shell with reusable bet slip, balance updates, and result modals.",5,10,2
-11,"Game history per user: browsable list of past rounds with inputs, RNG seed/hash, and outcomes.",5,11,3
-12,Risk explainer: show expected value (house edge) per game and example loss distributions with short educational text.,3,12,2
-13,"Practice scenarios: guided walkthrough explaining odds, common misconceptions, and bankroll management concepts.",8,13,2
-14,"Responsive layout for mobile, tablet, and desktop with smooth transitions between lobby and games.",5,14,2
-15,"Design system tokens for colors, spacing, typography; implement reusable button, input, card components.",5,15,1
-16,"Lobby page listing available games, RTP estimates, and quick‑start tiles.",3,16,1
-17,Animations for wins/losses and balance changes with reduced‑motion preference respected.,3,17,3
-18,Input validation and server‑side schema enforcement for all game actions and wallet operations.,5,18,2
-19,Error handling UI with retry guidance; central exception logging on server.,3,19,1
+11,"Responsive layout for mobile, tablet, and desktop with smooth transitions between lobby and games.",5,11,2
+12,"Design system tokens for colors, spacing, typography; implement reusable button, input, card components.",5,12,1
+13,"Lobby page listing available games, RTP estimates, and quick‑start tiles.",3,13,1
+14,Animations for wins/losses and balance changes with reduced‑motion preference respected.,3,14,3
+15,Input validation and server‑side schema enforcement for all game actions and wallet operations.,5,15,2
+16,Error handling UI with retry guidance; central exception logging on server.,3,16,1
