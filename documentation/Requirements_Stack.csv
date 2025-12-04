@@ -1,18 +1,21 @@
 Requirement ID,Description,Story Points,Priority,Sprint No.
-1,Display prominent educational disclaimer that the app is a simulation and not financial advice; require acknowledgment before first use.,3,1,
-2,"User registration with email/password, password strength meter, and verification link.",5,2,
-3,Secure login with session management and server‑side session invalidation on logout.,5,3,
-4,"Accessibility baseline: semantic HTML, keyboard navigation, color contrast checks, and screen‑reader labels for interactive elements.",5,7,
-5,Create simulated ‘401k tokens’ ledger with initial demo balance assignment on onboarding.,5,8,
-6,"Wallet UI to show current token balance, recent transactions, and filters (date, game, result).",5,9,
-7,"Blackjack game engine: hit/stand/double/split rules, dealer behavior, payout logic, and deck shoe management.",13,12,
-8,"Roulette game engine: inside/outside bets, spin resolution, and payout calculation.",13,13,
-9,"Slots engine: reel configuration, paylines, volatility settings, and spin resolution with animations.",8,14,
-10,"Unified game interface shell with reusable bet slip, balance updates, and result modals.",5,15,
-11,"Game history per user: browsable list of past rounds with inputs, RNG seed/hash, and outcomes.",5,16,
-12,"Responsive layout for mobile, tablet, and desktop with smooth transitions between lobby and games.",5,20,
-13,"Design system tokens for colors, spacing, typography; implement reusable button, input, card components.",5,21,
-14,"Lobby page listing available games, RTP estimates, and quick‑start tiles.",3,22,
-15,Animations for wins/losses and balance changes with reduced‑motion preference respected.,3,24,
-16,Input validation and server‑side schema enforcement for all game actions and wallet operations.,5,25,
-17,Error handling UI with retry guidance; central exception logging on server.,3,26,
+1,Display prominent educational disclaimer that the app is a simulation and not financial advice; require acknowledgment before first use.,3,1,1
+2,"User registration with email/password, password strength meter, and verification link.",5,2,1
+3,Secure login with session management and server‑side session invalidation on logout.,5,3,1
+4,"Accessibility baseline: semantic HTML, keyboard navigation, color contrast checks, and screen‑reader labels for interactive elements.",5,4,3
+5,Create simulated ‘401k tokens’ ledger with initial demo balance assignment on onboarding.,5,5,1
+6,"Wallet UI to show current token balance, recent transactions, and filters (date, game, result).",5,6,2
+7,Server‑side transaction recording with idempotency keys to prevent duplicate writes.,3,7,
+8,"Blackjack game engine: hit/stand/double/split rules, dealer behavior, payout logic, and deck shoe management.",13,8,1
+9,"Roulette game engine: inside/outside bets, spin resolution, and payout calculation.",13,9,3
+10,"Slots engine: reel configuration, paylines, volatility settings, and spin resolution with animations.",8,10,3
+11,"Unified game interface shell with reusable bet slip, balance updates, and result modals.",5,11,2
+12,"Game history per user: browsable list of past rounds with inputs, RNG seed/hash, and outcomes.",5,12,3
+13,Risk explainer: show expected value (house edge) per game and example loss distributions with short educational text.,3,13,2
+14,"Practice scenarios: guided walkthrough explaining odds, common misconceptions, and bankroll management concepts.",8,14,2
+15,"Responsive layout for mobile, tablet, and desktop with smooth transitions between lobby and games.",5,15,2
+16,"Design system tokens for colors, spacing, typography; implement reusable button, input, card components.",5,16,1
+17,"Lobby page listing available games, RTP estimates, and quick‑start tiles.",3,17,1
+18,Animations for wins/losses and balance changes with reduced‑motion preference respected.,3,19,3
+19,Input validation and server‑side schema enforcement for all game actions and wallet operations.,5,20,2
+20,Error handling UI with retry guidance; central exception logging on server.,3,21,1
